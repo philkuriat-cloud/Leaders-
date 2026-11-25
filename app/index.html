@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LeadFinder &ndash; Betriebe ohne gute Website</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>LeadFinder</h1>
+    <p>Findet Betriebe auf Google Maps ohne oder mit veralteter Website.</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="search">Leads suchen</button>
+    <button class="tab-btn" data-tab="contacts">
+      Kontaktanfragen <span id="contact-count-badge" class="count-badge" hidden></span>
+    </button>
+    <button class="tab-btn" data-tab="generator">Website-Generator</button>
+  </nav>
+
+  <main>
+    <div id="tab-search" class="tab-panel">
+      <section class="search-box">
+        <form id="search-form">
+          <input
+            id="query"
+            type="text"
+            placeholder="z.B. Friseure in Leipzig, Handwerker in Dresden ..."
+            required
+          />
+          <button type="submit">Suchen</button>
+        </form>
+        <div id="search-status"></div>
+      </section>
+
+      <section class="filters">
+        <label>Filter:</label>
+        <select id="status-filter">
+          <option value="">Alle Leads</option>
+          <option value="neu">Neu</option>
+          <option value="kontaktiert">Kontaktiert</option>
+          <option value="termin">Termin vereinbart</option>
+          <option value="kunde">Kunde geworden</option>
+          <option value="abgelehnt">Abgelehnt</option>
+        </select>
+        <a id="export-link" href="/api/leads/export.csv">Als CSV exportieren</a>
+      </section>
+
+      <section>
+        <table id="leads-table">
+          <thead>
+            <tr>
+              <th>Betrieb</th>
+              <th>Adresse / Telefon</th>
+              <th>Website-Status</th>
+              <th>Gründe</th>
+              <th>Lead-Status</th>
+              <th>Notizen</th>
+            </tr>
+          </thead>
+          <tbody id="leads-body"></tbody>
+        </table>
+        <div id="load-more-wrap" hidden>
+          <button id="load-more">Weitere Ergebnisse laden</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="tab-contacts" class="tab-panel" hidden>
+      <section class="filters">
+        <label>Filter:</label>
+        <select id="contact-status-filter">
+          <option value="">Alle Anfragen</option>
+          <option value="neu">Neu</option>
+          <option value="beantwortet">Beantwortet</option>
+          <option value="kunde">Kunde geworden</option>
+          <option value="abgelehnt">Abgelehnt</option>
+        </select>
+      </section>
+
+      <section>
+        <table id="contacts-table">
+          <thead>
+            <tr>
+              <th>Absender</th>
+              <th>Nachricht</th>
+              <th>Eingegangen am</th>
+              <th>Status</th>
+              <th>Notizen</th>
+            </tr>
+          </thead>
+          <tbody id="contacts-body"></tbody>
+        </table>
+      </section>
+    </div>
+
+    <div id="tab-generator" class="tab-panel" hidden>
+      <section class="search-box">
+        <form id="generator-form">
+          <div class="form-row">
+            <label for="gen-url">Google-Maps-Link oder URL der alten Website</label>
+            <input
+              id="gen-url"
+              type="url"
+              placeholder="https://maps.app.goo.gl/... oder https://alte-firma-website.de"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <label for="gen-notes">Deine Wünsche (optional, gerne 5&ndash;10 Stichpunkte)</label>
+            <textarea
+              id="gen-notes"
+              rows="5"
+              placeholder="z.B. Farben, Tonalität, was hervorgehoben werden soll, Zielgruppe, Slogan-Idee, besondere Leistungen ..."
+            ></textarea>
+          </div>
+          <button type="submit">Website generieren</button>
+        </form>
+        <div id="generator-status"></div>
+      </section>
+
+      <section id="generator-preview-section" hidden>
+        <h3 id="generator-preview-title"></h3>
+        <div class="preview-actions">
+          <a id="generator-preview-link" href="#" target="_blank" rel="noopener">In neuem Tab öffnen</a>
+        </div>
+        <iframe id="generator-preview-frame" class="generator-preview" title="Vorschau der generierten Website"></iframe>
+      </section>
+
+      <section>
+        <h3>Bisher generiert</h3>
+        <table id="generated-table">
+          <thead>
+            <tr>
+              <th>Betrieb</th>
+              <th>Quelle</th>
+              <th>Status</th>
+              <th>Erstellt am</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="generated-body"></tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "leadfinder",
+  "version": "1.0.0",
+  "description": "Findet Betriebe auf Google Maps ohne oder mit veralteter Website und verwaltet sie als Leads.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.14.0",
+    "better-sqlite3": "^11.3.0",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "nodemailer": "^10.6.1"
+  }
+}
